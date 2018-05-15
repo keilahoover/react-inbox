@@ -20,11 +20,39 @@ class App extends Component {
     })
   }
 
+  countMessages = (property) => {
+    let count = 0;
+    this.state.messages.forEach(message => {
+      if(message[property]) {
+        count++
+      }
+    })
+    return count
+  }
+
+  bulkSelectToggle = () => {
+    if (this.countMessages('selected') < this.state.messages.length) {
+      this.state.messages.filter(message => {
+        message.selected = true
+      })
+    this.setState({ messages: this.state.messages })
+    } else {
+      this.state.messages.filter(message => {
+        message.selected = false
+      })
+    }
+    this.setState({ messages: this.state.messages })
+  }
+
   render() {
     return (
       <section className="container">
         <h1>REACT INBOX</h1>
-        <Toolbar />
+        <Toolbar
+          messages={this.state.messages}
+          countMessages={this.countMessages}
+          bulkSelectToggle={this.bulkSelectToggle}
+           />
         <ComposeForm />
         <MessageList messages={this.state.messages} toggleClass={this.toggleClass} />
       </section>

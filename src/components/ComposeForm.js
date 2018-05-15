@@ -10,7 +10,7 @@ class ComposeForm extends React.Component {
     return (
       <form className="form-horizontal well">
         <section className="form-group">
-          <aside classname="col-sm-8 col-sm-offset-2">
+          <aside className="col-sm-8 col-sm-offset-2">
             <h4>Compose Message</h4>
           </aside>
         </section>
@@ -21,14 +21,14 @@ class ComposeForm extends React.Component {
           </aside>
         </section>
         <section className="form-group">
-          <label htmlFor="body" class="col-sm-2 control-label">Body</label>
+          <label htmlFor="body" className="col-sm-2 control-label">Body</label>
           <aside className="col-sm-8">
-            <textarea name="body" id="body" class="form-control"></textarea>
+            <textarea name="body" id="body" className="form-control"></textarea>
           </aside>
         </section>
         <section className="form-group">
           <aside className="col-sm-8 col-sm-offset-2">
-            <input type="submit" value="Send" class="btn btn-primary" />
+            <input type="submit" value="Send" className="btn btn-primary" />
           </aside>
         </section>
       </form>

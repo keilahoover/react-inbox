@@ -4,7 +4,9 @@ class Toolbar extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      message: this.props.message
+      messages: this.props.messages,
+      countMessages: this.props.countMessages,
+      bulkSelectToggle: this.props.bulkSelectToggle
     }
   }
 
@@ -12,7 +14,17 @@ class Toolbar extends React.Component {
     return (
       <nav className="row toolbar">
         <section className="col-md-12">
-          <button className="btn btn-default">
+          <p className="pull-right">
+            <span className="badge badge">
+            {this.state.messages.length - this.state.countMessages('read')}
+            </span>
+            unread messages
+          </p>
+
+          <button className="btn btn-default"
+            onClick={(e) => {
+              this.state.bulkSelectToggle()
+            }}>
             <i className="fa fa-check-square-o"></i>
           </button>
 
@@ -41,7 +53,7 @@ class Toolbar extends React.Component {
           <button className="btn btn-default">
             <i className="fa fa-trash-o"></i>
           </button>
-          
+
         </section>
       </nav>
     )

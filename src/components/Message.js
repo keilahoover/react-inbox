@@ -16,13 +16,13 @@ const Message = ({message, toggleClass}) => {
             <input type="checkbox" checked={userChecked}
               onChange = {(e) => {
                 e.preventDefault()
-                toggleClass(message, "selected")
+                toggleClass(message, 'selected')
               }} />
           </article>
           <article className={`col-xs-2 ${userStarred}`}
             onChange={(e) => {
               e.preventDefault()
-              toggleClass(message, "starred")
+              toggleClass(message, 'starred')
           }}>
           </article>
         </aside>
