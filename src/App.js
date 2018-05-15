@@ -3,6 +3,7 @@ import './App.css';
 
 import MessageList from './components/MessageList'
 import Toolbar from './components/Toolbar'
+import ComposeForm from './components/ComposeForm'
 
 class App extends Component {
   constructor(props) {
@@ -24,6 +25,7 @@ class App extends Component {
       <section className="container">
         <h1>REACT INBOX</h1>
         <Toolbar />
+        <ComposeForm />
         <MessageList messages={this.state.messages} toggleClass={this.toggleClass} />
       </section>
     )
