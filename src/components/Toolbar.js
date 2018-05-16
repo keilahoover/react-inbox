@@ -6,7 +6,16 @@ class Toolbar extends React.Component {
     this.state = {
       messages: this.props.messages,
       countMessages: this.props.countMessages,
-      bulkSelectToggle: this.props.bulkSelectToggle
+      bulkSelectToggle: this.props.bulkSelectToggle,
+      markAsReadToggle: this.props.markAsReadToggle
+    }
+  }
+
+  selectTool = (messages) => {
+    if (this.state.countMessages('selected') < 1) {
+      return 'fa fa-check-square-o'
+    } else {
+      return 'fa fa-check-square'
     }
   }
 
@@ -22,17 +31,23 @@ class Toolbar extends React.Component {
           </p>
 
           <button className="btn btn-default"
-            onClick={(e) => {
+            onClick={() => {
               this.state.bulkSelectToggle()
             }}>
-            <i className="fa fa-check-square-o"></i>
+            <i className={this.selectTool()}></i>
           </button>
 
-          <button className="btn btn-default">
+          <button className="btn btn-default"
+            onClick={() => {
+              this.state.markAsReadToggle(true)
+            }}>
             Mark As Read
           </button>
 
-          <button className="btn btn-default">
+          <button className="btn btn-default"
+            onClick={() => {
+              this.state.markAsReadToggle(false)
+            }}>
             Mark As Unread
           </button>
 

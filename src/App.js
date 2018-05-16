@@ -44,6 +44,15 @@ class App extends Component {
     this.setState({ messages: this.state.messages })
   }
 
+  markAsReadToggle = (messageStatus) => {
+    this.state.messages.filter(message => {
+      if (message.selected) {
+        message.read = messageStatus
+      }
+    })
+    this.setState({ messages: this.state.messages })
+  }
+
   render() {
     return (
       <section className="container">
@@ -52,6 +61,7 @@ class App extends Component {
           messages={this.state.messages}
           countMessages={this.countMessages}
           bulkSelectToggle={this.bulkSelectToggle}
+          markAsReadToggle={this.markAsReadToggle}
            />
         <ComposeForm />
         <MessageList messages={this.state.messages} toggleClass={this.toggleClass} />

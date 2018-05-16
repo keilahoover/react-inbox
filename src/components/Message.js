@@ -9,7 +9,7 @@ const Message = ({message, toggleClass}) => {
 
   return (
     <section className={`row message ${userRead} ${userSelected}`}
-      onClick = {() => {toggleClass(message, "read")}}>
+      onClick = {() => {toggleClass(message, 'read')}}>
       <article className="col-xs-1">
         <aside className="row">
           <article className="col-xs-2">

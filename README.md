@@ -23,7 +23,7 @@
 [] Then the message should NOT be highlighted
 
 #### Bulk Select / Deselect
-[] Users should be able to select and deselect messages.
+[x] Users should be able to select and deselect messages.
 
 ##### Given that no messages are selected
 [] When a user checks the "Select All" checkbox
@@ -79,7 +79,7 @@ NOTE: It's OK to hard-code the list of labels
 NOTE: If you try to remove a label from a message that doesn't have that label, there should be no errors
 
 #### Unread Message Count
-[] Users should always see the number of unread messages
+[x] Users should always see the number of unread messages
 
 ##### When a user changes which messages are read / unread
 [] Then the unread count in the upper right-hand corner should update
