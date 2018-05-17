@@ -13,7 +13,7 @@ class App extends Component {
 
   toggleClass = (message, className) => {
     const index = this.state.messages.indexOf(message)
-    // this.state.messages[index][className] = !this.state.messages[index][className]
+    this.state.messages[index][className] = !this.state.messages[index][className]
     this.setState({
       id: index[className],
       messages: this.state.messages
@@ -53,6 +53,16 @@ class App extends Component {
     this.setState({ messages: this.state.messages })
   }
 
+  deleteMessage = () => {
+    let messages = this.state.messages
+    messages.filter(message => {
+      if (message.selected) {
+        messages.splice(messages.indexOf(message), 1)
+      }
+    })
+    this.setState({ messages: messages})
+  }
+
   render() {
     return (
       <section className="container">
@@ -62,7 +72,8 @@ class App extends Component {
           countMessages={this.countMessages}
           bulkSelectToggle={this.bulkSelectToggle}
           markAsReadToggle={this.markAsReadToggle}
-           />
+          deleteMessage={this.deleteMessage}
+          />
         <ComposeForm />
         <MessageList messages={this.state.messages} toggleClass={this.toggleClass} />
       </section>

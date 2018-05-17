@@ -10,48 +10,48 @@
  [] If the message is starred, then the star should be filled in, otherwise it should be empty
 
 #### Starring
-[] Users should be able to star and unstar a message.
-[] When a user clicks the star next to a message
-[] Then it should toggle whether the message is starred or not
-[] For example if it was starred, and you clicked on it, it should be unstarred
+[x] Users should be able to star and unstar a message.
+[x] When a user clicks the star next to a message
+[x] Then it should toggle whether the message is starred or not
+[x] For example if it was starred, and you clicked on it, it should be unstarred
 
 #### Selecting Individual Messages
-[] Users should be able to select and deselect individual messages.
-[] When a user checks the checkbox on a message
-[] Then the message should be highlighted
-[] When a user unchecks the checkbox on a message
-[] Then the message should NOT be highlighted
+[x] Users should be able to select and deselect individual messages.
+[x] When a user checks the checkbox on a message
+[x] Then the message should be highlighted
+[x] When a user unchecks the checkbox on a message
+[x] Then the message should NOT be highlighted
 
 #### Bulk Select / Deselect
 [x] Users should be able to select and deselect messages.
 
 ##### Given that no messages are selected
-[] When a user checks the "Select All" checkbox
-[] Then it should check all messages (and highlight them)
+[x] When a user checks the "Select All" checkbox
+[x] Then it should check all messages (and highlight them)
 
 ##### Given that some messages are selected
-[] When a user checks the "Select All" checkbox
-[] Then it should check all messages (and highlight them)
+[x] When a user checks the "Select All" checkbox
+[x] Then it should check all messages (and highlight them)
 
 ##### Given that all messages are selected
-[] When a user unchecks the "Select All" checkbox
-[] Then it should uncheck all messages (and unhighlight them)
+[x] When a user unchecks the "Select All" checkbox
+[x] Then it should uncheck all messages (and unhighlight them)
 
 #### Marking Messages as Read
-[] Users should be able to mark messages as read.
+[x] Users should be able to mark messages as read.
 
 ##### When a user selects messages
-[] And presses "Mark As Read"
-[] Then each selected message should be marked as read
-[] And should no longer be bold
+[x] And presses "Mark As Read"
+[x] Then each selected message should be marked as read
+[x] And should no longer be bold
 
 #### Marking Messages as Unread
-[] Users should be able to mark messages as unread.
+[x] Users should be able to mark messages as unread.
 
 ##### When a user selects messages
-[] And presses "Mark As Unread"
-[] Then each selected message should be marked as unread
-[] And should should appear bold
+[x] And presses "Mark As Unread"
+[x] Then each selected message should be marked as unread
+[x] And should should appear bold
 
 #### Deleting Messages
 [] Users should be able to delete selected messages
@@ -82,22 +82,22 @@ NOTE: If you try to remove a label from a message that doesn't have that label, 
 [x] Users should always see the number of unread messages
 
 ##### When a user changes which messages are read / unread
-[] Then the unread count in the upper right-hand corner should update
-[] And when there are 0 unread messages it should display "0 unread messages"
+[x] Then the unread count in the upper right-hand corner should update
+[x] And when there are 0 unread messages it should display "0 unread messages"
 [] And when there is 1 unread message it should display "1 unread message"
-[] And when there's more than 1 unread message it should display "_n_ unread messages"
+[x] And when there's more than 1 unread message it should display "_n_ unread messages"
 
 #### Select All Button State
 [] Users should see the state of the select all button change as messages are selected
 
 ##### When no messages are checked
-[] Then the "Select All" button should be in the "unchecked" state
+[x] Then the "Select All" button should be in the "unchecked" state
 
 ##### When some messages are checked
-[] Then the "Select All" button should be in the "half-checked" state
+[x] Then the "Select All" button should be in the "half-checked" state
 
 ##### When all messages are checked
-[] Then the "Select All" button should be in the "checked" state
+[x] Then the "Select All" button should be in the "checked" state
 NOTE: the "Select All" button must stay in sync at all times.
 
 #### Select All Button State

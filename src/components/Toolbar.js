@@ -7,13 +7,16 @@ class Toolbar extends React.Component {
       messages: this.props.messages,
       countMessages: this.props.countMessages,
       bulkSelectToggle: this.props.bulkSelectToggle,
-      markAsReadToggle: this.props.markAsReadToggle
+      markAsReadToggle: this.props.markAsReadToggle,
+      deleteMessage: this.props.deleteMessage
     }
   }
 
   selectTool = (messages) => {
     if (this.state.countMessages('selected') < 1) {
       return 'fa fa-check-square-o'
+    } else if (this.state.countMessages('selected') < 4) {
+      return 'fa fa-minus-square-o'
     } else {
       return 'fa fa-check-square'
     }
@@ -65,8 +68,11 @@ class Toolbar extends React.Component {
             <option value="gschool">gschool</option>
           </select>
 
-          <button className="btn btn-default">
-            <i className="fa fa-trash-o"></i>
+          <button className="btn btn-default"
+            onClick={() => {
+              this.state.deleteMessage()
+            }}>
+            <i className='fa fa-trash-o'></i>
           </button>
 
         </section>
