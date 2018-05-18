@@ -8,7 +8,8 @@ class Toolbar extends React.Component {
       countMessages: this.props.countMessages,
       bulkSelectToggle: this.props.bulkSelectToggle,
       markAsReadToggle: this.props.markAsReadToggle,
-      deleteMessage: this.props.deleteMessage
+      deleteMessage: this.props.deleteMessage,
+      updateLabelStatus: this.props.updateLabelStatus
     }
   }
 
@@ -54,14 +55,22 @@ class Toolbar extends React.Component {
             Mark As Unread
           </button>
 
-          <select className="form-control label-select">
-            <option>Apply label</option>
+          <select className="form-control label-select"
+            onChange={(e) => {
+              this.state.updateLabelStatus(e.target.value, true)
+            }}
+          >
+            <option value={false}>Apply label</option>
             <option value="dev">dev</option>
             <option value="personal">personal</option>
             <option value="gschool">gschool</option>
           </select>
 
-          <select className="form-control label-select">
+          <select className="form-control label-select"
+            onChange={(e) => {
+              this.state.updateLabelStatus(e.target.value, false)
+            }}
+          >
             <option>Remove label</option>
             <option value="dev">dev</option>
             <option value="personal">personal</option>

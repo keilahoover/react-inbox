@@ -12,11 +12,12 @@ class App extends Component {
   }
 
   toggleClass = (message, className) => {
-    const index = this.state.messages.indexOf(message)
-    this.state.messages[index][className] = !this.state.messages[index][className]
+    const messages = this.state.messages
+    const index = messages.indexOf(message)
+    messages[index][className] = !messages[index][className]
     this.setState({
       id: index[className],
-      messages: this.state.messages
+      messages: messages
     })
   }
 
@@ -31,36 +32,57 @@ class App extends Component {
   }
 
   bulkSelectToggle = () => {
-    if (this.countMessages('selected') < this.state.messages.length) {
-      this.state.messages.filter(message => {
+    const messages = this.state.messages
+    if (this.countMessages('selected') < messages.length) {
+      messages.filter(message => {
         message.selected = true
       })
-    this.setState({ messages: this.state.messages })
+    this.setState({ messages: messages })
     } else {
-      this.state.messages.filter(message => {
+        messages.filter(message => {
         message.selected = false
       })
     }
-    this.setState({ messages: this.state.messages })
+    this.setState({ messages: messages })
   }
 
   markAsReadToggle = (messageStatus) => {
-    this.state.messages.filter(message => {
+    const messages = this.state.messages
+    messages.filter(message => {
       if (message.selected) {
         message.read = messageStatus
       }
     })
-    this.setState({ messages: this.state.messages })
+    this.setState({ messages: messages })
   }
 
   deleteMessage = () => {
-    let messages = this.state.messages
+    const messages = this.state.messages
     messages.filter(message => {
       if (message.selected) {
         messages.splice(messages.indexOf(message), 1)
       }
     })
     this.setState({ messages: messages})
+  }
+
+  updateLabelStatus = (messageStatus, label) => {
+    const oldMessages = this.state.messages
+    const newMessages = oldMessages.map(message => {
+      const oldLabels = message.labels
+      return {
+        ...message,
+        labels: [...oldLabels, 'foo']
+      }
+      // if (message.selected) {
+      //   if (messageStatus && !message.labels.includes(label) && label !== 'false') {
+      //     message.labels = [...message.labels, label]
+      //   } else if (!messageStatus && messages.labels.includes(label)){
+      //     message.labels.splice(message.labels.indexOf(label), 1)
+      //   }
+      // }
+    })
+    this.setState({ messages: newMessages })
   }
 
   render() {
@@ -73,6 +95,7 @@ class App extends Component {
           bulkSelectToggle={this.bulkSelectToggle}
           markAsReadToggle={this.markAsReadToggle}
           deleteMessage={this.deleteMessage}
+          updateLabelStatus={this.updateLabelStatus}
           />
         <ComposeForm />
         <MessageList messages={this.state.messages} toggleClass={this.toggleClass} />

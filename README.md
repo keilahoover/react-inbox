@@ -57,10 +57,10 @@
 [] Users should be able to delete selected messages
 
 ##### When a user selects messages
-[] And presses "Delete" (the Trash icon)
-[] Then each selected message should be removed from the list
-[] And the unread count should update
-[] And "Select All" button should update
+[x] And presses "Delete" (the Trash icon)
+[x] Then each selected message should be removed from the list
+[x] And the unread count should update
+[x] And "Select All" button should update
 
 #### Adding Labels
 [] When a user selects messages from the sidebar
