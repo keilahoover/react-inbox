@@ -18,11 +18,11 @@ class Message extends React.Component {
   }
 
   renderLabels = () => {
-      return this.props.message.labels.map((label, i) => {
-          return <span role="message-label" key={i}
-              className="label label-warning">{label}
-              </span> }
-      )
+    return this.props.message.labels.map((label, i) => {
+        return <span role="message-label" key={i}
+            className="label label-warning">{label}
+            </span> }
+    )
   }
 
   render() {

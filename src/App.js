@@ -66,21 +66,13 @@ class App extends Component {
     this.setState({ messages: messages})
   }
 
-  updateLabelStatus = (messageStatus, label) => {
+  updateLabelStatus = (boolean, label) => {
     const oldMessages = this.state.messages
     const newMessages = oldMessages.map(message => {
-      const oldLabels = message.labels
       return {
-        ...message,
-        label: oldLabels
+        ...message.labels,
+        labels: [...message.labels, label, 'sonic']
       }
-      // if (message.selected) {
-      //   if (messageStatus && !message.labels.includes(label) && label !== 'false') {
-      //     message.labels = [...message.labels, label]
-      //   } else if (!messageStatus && messages.labels.includes(label)){
-      //     message.labels.splice(message.labels.indexOf(label), 1)
-      //   }
-      // }
     })
     this.setState({ ...this.state, messages: newMessages })
   }

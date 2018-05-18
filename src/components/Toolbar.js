@@ -27,7 +27,7 @@ class Toolbar extends React.Component {
 
   onUpdateLabelStatus(event) {
     event.preventDefault()
-    this.props.updateLabelStatus(event.target.value, true)
+    this.props.updateLabelStatus(true, event.target.value)
   }
 
   render() {
@@ -72,7 +72,7 @@ class Toolbar extends React.Component {
 
           <select className="form-control label-select"
             onChange={(e) => {
-              this.state.updateLabelStatus(e.target.value, false)
+              this.state.updateLabelStatus(false, e.target.value)
             }}
           >
             <option>Remove label</option>
