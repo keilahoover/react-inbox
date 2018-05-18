@@ -11,6 +11,8 @@ class Toolbar extends React.Component {
       deleteMessage: this.props.deleteMessage,
       updateLabelStatus: this.props.updateLabelStatus
     }
+
+    this.onUpdateLabelStatus = this.onUpdateLabelStatus.bind(this)
   }
 
   selectTool = (messages) => {
@@ -21,6 +23,11 @@ class Toolbar extends React.Component {
     } else {
       return 'fa fa-check-square'
     }
+  }
+
+  onUpdateLabelStatus(event) {
+    event.preventDefault()
+    this.props.updateLabelStatus(event.target.value, true)
   }
 
   render() {
@@ -56,10 +63,7 @@ class Toolbar extends React.Component {
           </button>
 
           <select className="form-control label-select"
-            onChange={(e) => {
-              this.state.updateLabelStatus(e.target.value, true)
-            }}
-          >
+            onChange={this.onUpdateLabelStatus}>
             <option value={false}>Apply label</option>
             <option value="dev">dev</option>
             <option value="personal">personal</option>

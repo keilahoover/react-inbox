@@ -21,32 +21,32 @@ class Message extends React.Component {
       return this.props.message.labels.map((label, i) => {
           return <span role="message-label" key={i}
               className="label label-warning">{label}
-      </span> }
+              </span> }
       )
   }
 
   render() {
     return (
       <section className={`row message ${this.userRead()} ${this.userSelected()}`}
-        onClick={() => { this.props.toggleClass(this.props.message, 'read') }}>
-        <article className="col-xs-1">
-          <aside className="row">
-            <article className="col-xs-2">
-              <input type="checkbox" checked={this.userChecked()}
-                onChange={() => {
-                  this.props.toggleClass(this.props.message, 'selected')
-              }} />
-            </article>
-            <article className='col-xs-2'>
-                <i onClick={() => this.props.toggleClass(this.props.message, 'starred')} className={this.userStarred()}></i>
-            </article>
-          </aside>
-        </article>
-        <article className="col-xs-11">
-            {this.renderLabels()}
-            <a href="#">{this.props.message.subject}</a>
-        </article>
-      </section>
+              onClick={() => { this.props.toggleClass(this.props.message, 'read') }}>
+              <article className="col-xs-1">
+                <aside className="row">
+                  <article className="col-xs-2">
+                    <input type="checkbox" checked={this.userChecked()}
+                      onChange={() => {
+                        this.props.toggleClass(this.props.message, 'selected')
+                    }} />
+                  </article>
+                  <article className='col-xs-2'>
+                      <i onClick={() => this.props.toggleClass(this.props.message, 'starred')} className={this.userStarred()}></i>
+                  </article>
+                </aside>
+              </article>
+              <article className="col-xs-11">
+                  {this.renderLabels()}
+                  <a href="#">{this.props.message.subject}</a>
+              </article>
+            </section>
     )
   }
 }

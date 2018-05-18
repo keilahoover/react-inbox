@@ -72,7 +72,7 @@ class App extends Component {
       const oldLabels = message.labels
       return {
         ...message,
-        labels: [...oldLabels, 'foo']
+        label: oldLabels
       }
       // if (message.selected) {
       //   if (messageStatus && !message.labels.includes(label) && label !== 'false') {
@@ -82,7 +82,7 @@ class App extends Component {
       //   }
       // }
     })
-    this.setState({ messages: newMessages })
+    this.setState({ ...this.state, messages: newMessages })
   }
 
   render() {
