@@ -69,13 +69,11 @@ class App extends Component {
   updateLabelStatus = (boolean, label) => {
     const oldMessages = this.state.messages
     const newMessages = oldMessages.map(message => {
-      return {
-        ...message.labels,
-        labels: [...message.labels, label, 'sonic']
-      }
+      return message.labels.indexOf(label) === -1 ? {...message, labels: [...message.labels, label]} : message
     })
     this.setState({ ...this.state, messages: newMessages })
   }
+
 
   render() {
     return (
