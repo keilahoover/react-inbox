@@ -66,13 +66,28 @@ class App extends Component {
     this.setState({ messages: messages})
   }
 
-  updateLabelStatus = (boolean, label) => {
-    const oldMessages = this.state.messages
-    const newMessages = oldMessages.map(message => {
+
+  applyLabel = (prevMessages, label) => {
+    const messages = prevMessages.slice()
+    const selectedMessages = messages.map(message => {
+      if (message.selected === true) {
         return message.labels.indexOf(label) === -1 ? {...message, labels: [...message.labels, label]} : message
+      }
     })
-    this.setState({ ...this.state, messages: newMessages })
+    this.setState({ messages: selectedMessages })
   }
+
+  removeLabel = (prevMessages, label) => {
+  const messages = prevMessages.slice();
+  const selectedMessages = messages.map(message => {
+    if (message.selected === true) {
+      const index = message.labels.indexOf(`${label}`);
+      return message.labels.includes(`${label}`) ? message.labels.splice(index, 1) : message.labels;
+    }
+  })
+  this.setState({ messages: selectedMessages })
+}
+
 
   render() {
     return (
@@ -84,7 +99,8 @@ class App extends Component {
           bulkSelectToggle={this.bulkSelectToggle}
           markAsReadToggle={this.markAsReadToggle}
           deleteMessage={this.deleteMessage}
-          updateLabelStatus={this.updateLabelStatus}
+          applyLabel={this.applyLabel}
+          removeLabel={this.removeLabel}
           />
         <ComposeForm />
         <MessageList messages={this.state.messages} toggleClass={this.toggleClass} />

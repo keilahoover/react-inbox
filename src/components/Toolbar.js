@@ -9,10 +9,11 @@ class Toolbar extends React.Component {
       bulkSelectToggle: this.props.bulkSelectToggle,
       markAsReadToggle: this.props.markAsReadToggle,
       deleteMessage: this.props.deleteMessage,
-      updateLabelStatus: this.props.updateLabelStatus
+      applyLabel: this.props.applyLabel,
+      removeLabel: this.props.removeLabel
     }
 
-    this.onUpdateApplyLabelStatus = this.onUpdateApplyLabelStatus.bind(this)
+    this.onApplyLabel = this.onApplyLabel.bind(this)
     this.onRemoveLabel = this.onRemoveLabel.bind(this)
 
   }
@@ -27,14 +28,14 @@ class Toolbar extends React.Component {
     }
   }
 
-  onUpdateApplyLabelStatus(event) {
-    event.preventDefault()
-    this.state.updateLabelStatus(true, event.target.value)
+  onApplyLabel(e) {
+    e.preventDefault()
+    this.state.applyLabel(this.state.messages, e.target.value)
   }
 
-  onRemoveLabel(event) {
-    event.preventDefault()
-    this.state.updateLabelStatus(false, event.target.value)
+  onRemoveLabel(e) {
+    e.preventDefault()
+    this.state.removeLabel(this.state.messages, e.target.value)
   }
 
   render() {
@@ -70,7 +71,7 @@ class Toolbar extends React.Component {
           </button>
 
           <select className="form-control label-select" defaultValue="default"
-            onChange={this.onUpdateApplyLabelStatus}>
+            onChange={this.onApplyLabel}>
             <option disabled={true} value="default">Apply label</option>
             <option value="dev">dev</option>
             <option value="personal">personal</option>

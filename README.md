@@ -54,7 +54,7 @@
 [x] And should should appear bold
 
 #### Deleting Messages
-[] Users should be able to delete selected messages
+[x] Users should be able to delete selected messages
 
 ##### When a user selects messages
 [x] And presses "Delete" (the Trash icon)
@@ -63,10 +63,10 @@
 [x] And "Select All" button should update
 
 #### Adding Labels
-[] When a user selects messages from the sidebar
-[]And chooses a label from the "Add Label" dropdown
-[] Then that label should be added to all selected messages
-[] But if the message already contains the label then it should not be added twice
+[x] When a user selects messages from the sidebar
+[x]And chooses a label from the "Add Label" dropdown
+[x] Then that label should be added to all selected messages
+[x] But if the message already contains the label then it should not be added twice
 NOTE: It's OK to hard-code the list of labels
 
 #### Removing Labels
@@ -84,11 +84,11 @@ NOTE: If you try to remove a label from a message that doesn't have that label, 
 ##### When a user changes which messages are read / unread
 [x] Then the unread count in the upper right-hand corner should update
 [x] And when there are 0 unread messages it should display "0 unread messages"
-[] And when there is 1 unread message it should display "1 unread message"
+[x] And when there is 1 unread message it should display "1 unread message"
 [x] And when there's more than 1 unread message it should display "_n_ unread messages"
 
 #### Select All Button State
-[] Users should see the state of the select all button change as messages are selected
+[x] Users should see the state of the select all button change as messages are selected
 
 ##### When no messages are checked
 [x] Then the "Select All" button should be in the "unchecked" state
