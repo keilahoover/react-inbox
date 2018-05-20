@@ -75,6 +75,10 @@ footer.spacer {
   margin-right: .5em;
 }
 
+.remove-label {
+  display: none;
+}
+
 .fa-close {
   cursor: pointer;
 }

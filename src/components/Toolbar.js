@@ -12,7 +12,9 @@ class Toolbar extends React.Component {
       updateLabelStatus: this.props.updateLabelStatus
     }
 
-    this.onUpdateLabelStatus = this.onUpdateLabelStatus.bind(this)
+    this.onUpdateApplyLabelStatus = this.onUpdateApplyLabelStatus.bind(this)
+    this.onRemoveLabel = this.onRemoveLabel.bind(this)
+
   }
 
   selectTool = (messages) => {
@@ -25,9 +27,14 @@ class Toolbar extends React.Component {
     }
   }
 
-  onUpdateLabelStatus(event) {
+  onUpdateApplyLabelStatus(event) {
     event.preventDefault()
     this.state.updateLabelStatus(true, event.target.value)
+  }
+
+  onRemoveLabel(event) {
+    event.preventDefault()
+    this.state.updateLabelStatus(false, event.target.value)
   }
 
   render() {
@@ -62,20 +69,17 @@ class Toolbar extends React.Component {
             Mark As Unread
           </button>
 
-          <select className="form-control label-select"
-            onChange={this.onUpdateLabelStatus}>
-            <option>Apply label</option>
+          <select className="form-control label-select" defaultValue="default"
+            onChange={this.onUpdateApplyLabelStatus}>
+            <option disabled={true} value="default">Apply label</option>
             <option value="dev">dev</option>
             <option value="personal">personal</option>
             <option value="gschool">gschool</option>
           </select>
 
-          <select className="form-control label-select"
-            onChange={(e) => {
-              this.state.updateLabelStatus(false, e.target.value)
-            }}
-          >
-            <option>Remove label</option>
+          <select className="form-control label-select" defaultValue="default"
+            onChange={this.onRemoveLabel}>
+            <option disabled={true} value="default">Remove label</option>
             <option value="dev">dev</option>
             <option value="personal">personal</option>
             <option value="gschool">gschool</option>
