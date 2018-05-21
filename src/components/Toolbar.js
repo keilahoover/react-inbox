@@ -35,7 +35,7 @@ class Toolbar extends React.Component {
 
   onRemoveLabel(e) {
     e.preventDefault()
-    this.state.removeLabel(this.state.messages, e.target.value)
+    this.state.removeLabel(e.target.value)
   }
 
   render() {

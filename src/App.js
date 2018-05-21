@@ -77,15 +77,19 @@ class App extends Component {
     this.setState({ messages: selectedMessages })
   }
 
-  removeLabel = (prevMessages, label) => {
-  const messages = prevMessages.slice();
-  const selectedMessages = messages.map(message => {
-    if (message.selected === true) {
-      const index = message.labels.indexOf(`${label}`);
-      return message.labels.includes(`${label}`) ? message.labels.splice(index, 1) : message.labels;
+  removeLabel = (label) => {
+  const messages = this.props.messages
+  const selectedMessage = messages.filter(message => message.selected === true)
+  messages.forEach(message => {
+    for (let i = 0; i < selectedMessage.length; i++) {
+      if (message.id === selectedMessage[i].id) {
+        if (selectedMessage[i].labels.includes(label)) {
+          return messages[message.id - 1].labels = messages[message.id - 1].labels.filter(message => message !== label)
+        }
+      }
     }
   })
-  this.setState({ messages: selectedMessages })
+  this.setState({ messages: messages })
 }
 
 
