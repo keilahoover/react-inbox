@@ -102,3 +102,23 @@ NOTE: the "Select All" button must stay in sync at all times.
 
 #### Select All Button State
 [] Users should not be able to click on toolbar items when no messages are selected
+
+#### Load the messages from the server
+[]The messages they see should be the ones loaded from the server
+
+### Actions should update the server-side When a user stars or unstars a message
+[]reloads the page they should see that the data has been persisted
+
+[] When a user marks messages read or unread Or deletes messages Or adds or removes labels and then refreshes the page
+Then they should see that the data has been persisted
+
+NOTE: the server-side API you are running locally runs in memory, so if you restart it, the data will reset.
+
+#### Add the ability to compose messages
+[] using a red plus button
+[]And when they click that button Then a compose form should appear
+[] And when they fill out the subject and body and press Send then the compose form should go away
+[] And the message should appear on the page
+[] And when they refresh, the message should still appear (it's persisted on the server)
+
+[] When a user opens the compose form and then presses the red compose button then the compose form should close

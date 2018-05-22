@@ -1,4 +1,5 @@
 import React from 'react'
+import ComposeForm from './ComposeForm'
 
 class Toolbar extends React.Component {
   constructor(props) {
@@ -10,7 +11,9 @@ class Toolbar extends React.Component {
       markAsReadToggle: this.props.markAsReadToggle,
       deleteMessage: this.props.deleteMessage,
       applyLabel: this.props.applyLabel,
-      removeLabel: this.props.removeLabel
+      removeLabel: this.props.removeLabel,
+      composeMessage: this.props.composeMessage,
+      formHidden: true
     }
 
     this.onApplyLabel = this.onApplyLabel.bind(this)
@@ -38,8 +41,18 @@ class Toolbar extends React.Component {
     this.state.removeLabel(e.target.value)
   }
 
+  onComposeMessage() {
+    if (this.state.formHidden) {
+      this.setState({
+        ...this.state,
+        formHidden: false
+      })
+    }
+  }
+
   render() {
     return (
+      <div>
       <nav className="row toolbar">
         <section className="col-md-12">
           <p className="pull-right">
@@ -48,6 +61,15 @@ class Toolbar extends React.Component {
             </span>
             unread messages
           </p>
+
+          <a className="btn btn-danger"
+            onClick={() => {
+              this.onComposeMessage()
+            }}
+          >
+            <i className="fa fa-plus">
+            </i>
+          </a>
 
           <button className="btn btn-default"
             onClick={() => {
@@ -95,6 +117,10 @@ class Toolbar extends React.Component {
 
         </section>
       </nav>
+      <section className="container">
+        <ComposeForm formHidden={this.state.formHidden}/>
+      </section>
+    </div>
     )
   }
 

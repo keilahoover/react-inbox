@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-
 import MessageList from './components/MessageList'
 import Toolbar from './components/Toolbar'
 import ComposeForm from './components/ComposeForm'
@@ -92,24 +91,32 @@ class App extends Component {
   this.setState({ messages: messages })
 }
 
+  composeMessage = () => {
+    console.log('hello!')
+    this.setState({
+      btnClicked: !this.state.btnClicked,
+      messageBody: null
+    })
+  }
+
 
   render() {
-    return (
-      <section className="container">
-        <h1>REACT INBOX</h1>
-        <Toolbar
-          messages={this.state.messages}
-          countMessages={this.countMessages}
-          bulkSelectToggle={this.bulkSelectToggle}
-          markAsReadToggle={this.markAsReadToggle}
-          deleteMessage={this.deleteMessage}
-          applyLabel={this.applyLabel}
-          removeLabel={this.removeLabel}
-          />
-        <ComposeForm />
-        <MessageList messages={this.state.messages} toggleClass={this.toggleClass} />
-      </section>
-    )
+      return (
+        <section className="container">
+          <h1>REACT INBOX</h1>
+          <Toolbar
+            messages={this.state.messages}
+            countMessages={this.countMessages}
+            bulkSelectToggle={this.bulkSelectToggle}
+            markAsReadToggle={this.markAsReadToggle}
+            deleteMessage={this.deleteMessage}
+            applyLabel={this.applyLabel}
+            removeLabel={this.removeLabel}
+            composeMessage={this.composeMessage}
+            />
+          <MessageList messages={this.state.messages} toggleClass={this.toggleClass} />
+        </section>
+      )
   }
 }
 export default App;
