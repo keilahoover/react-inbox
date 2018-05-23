@@ -6,7 +6,7 @@ class MessageList extends React.Component {
   render() {
     return (
       <article>
-        {this.props.messages.map(message => <Message key={message.id} message={message} toggleClass={this.props.toggleClass}/>)}
+        {this.props.messages.map((message, i) => <Message key={i} message={message} toggleClass={this.props.toggleClass}/>)}
       </article>
     )
   }

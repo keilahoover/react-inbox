@@ -47,79 +47,84 @@ class Toolbar extends React.Component {
         ...this.state,
         formHidden: false
       })
+    } else {
+      this.setState({
+        ...this.state,
+        formHidden: true
+      })
     }
   }
 
   render() {
     return (
       <div>
-      <nav className="row toolbar">
-        <section className="col-md-12">
-          <p className="pull-right">
-            <span className="badge badge">
-            {this.state.messages.length - this.state.countMessages('read')}
-            </span>
-            unread messages
-          </p>
+        <nav className="row toolbar">
+          <section className="col-md-12">
+            <p className="pull-right">
+              <span className="badge badge">
+                {this.state.countMessages()}
+              </span>
+              unread messages
+            </p>
 
-          <a className="btn btn-danger"
-            onClick={() => {
-              this.onComposeMessage()
-            }}
-          >
-            <i className="fa fa-plus">
-            </i>
-          </a>
+            <a className="btn btn-danger"
+              onClick={() => {
+                this.onComposeMessage()
+              }}
+            >
+              <i className="fa fa-plus">
+              </i>
+            </a>
 
-          <button className="btn btn-default"
-            onClick={() => {
-              this.state.bulkSelectToggle()
-            }}>
-            <i className={this.selectTool()}></i>
-          </button>
+            <button className="btn btn-default"
+              onClick={() => {
+                this.state.bulkSelectToggle()
+              }}>
+              <i className={this.selectTool()}></i>
+            </button>
 
-          <button className="btn btn-default"
-            onClick={() => {
-              this.state.markAsReadToggle(true)
-            }}>
-            Mark As Read
-          </button>
+            <button className="btn btn-default"
+              onClick={() => {
+                this.state.markAsReadToggle(true)
+              }}>
+              Mark As Read
+            </button>
 
-          <button className="btn btn-default"
-            onClick={() => {
-              this.state.markAsReadToggle(false)
-            }}>
-            Mark As Unread
-          </button>
+            <button className="btn btn-default"
+              onClick={() => {
+                this.state.markAsReadToggle(false)
+              }}>
+              Mark As Unread
+            </button>
 
-          <select className="form-control label-select" defaultValue="default"
-            onChange={this.onApplyLabel}>
-            <option disabled={true} value="default">Apply label</option>
-            <option value="dev">dev</option>
-            <option value="personal">personal</option>
-            <option value="gschool">gschool</option>
-          </select>
+            <select className="form-control label-select" defaultValue="default"
+              onChange={this.onApplyLabel}>
+              <option disabled={true} value="default">Apply label</option>
+              <option value="dev">dev</option>
+              <option value="personal">personal</option>
+              <option value="gschool">gschool</option>
+            </select>
 
-          <select className="form-control label-select" defaultValue="default"
-            onChange={this.onRemoveLabel}>
-            <option disabled={true} value="default">Remove label</option>
-            <option value="dev">dev</option>
-            <option value="personal">personal</option>
-            <option value="gschool">gschool</option>
-          </select>
+            <select className="form-control label-select" defaultValue="default"
+              onChange={this.onRemoveLabel}>
+              <option disabled={true} value="default">Remove label</option>
+              <option value="dev">dev</option>
+              <option value="personal">personal</option>
+              <option value="gschool">gschool</option>
+            </select>
 
-          <button className="btn btn-default"
-            onClick={() => {
-              this.state.deleteMessage()
-            }}>
-            <i className='fa fa-trash-o'></i>
-          </button>
+            <button className="btn btn-default"
+              onClick={() => {
+                this.state.deleteMessage()
+              }}>
+              <i className='fa fa-trash-o'></i>
+            </button>
 
+          </section>
+        </nav>
+        <section className="container">
+          <ComposeForm formHidden={this.state.formHidden} sendMessage={this.props.sendMessage} storeState={this.props.storeState}/>
         </section>
-      </nav>
-      <section className="container">
-        <ComposeForm formHidden={this.state.formHidden}/>
-      </section>
     </div>
     )
   }

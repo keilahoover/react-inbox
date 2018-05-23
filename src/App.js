@@ -7,7 +7,56 @@ import ComposeForm from './components/ComposeForm'
 class App extends Component {
   constructor(props) {
     super(props)
-    this.state = {messages: this.props.messages}
+    this.state = {
+      messages: []
+    }
+  }
+
+  async componentDidMount() {
+    const response = await fetch('http://localhost:8082/api/messages')
+    const json = await response.json()
+    console.log('json', json);
+    this.setState({
+      messages: json._embedded.messages
+    })
+  }
+
+  sendMessage = async(subject, body) => {
+    console.log('subject', subject);
+    const composedMessage = {subject: subject, body: body}
+    const response = await fetch('http://localhost:8082/api/messages', {
+      method: 'POST',
+      body: JSON.stringify(composedMessage),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    })
+    if (response.status === 200) {
+      const json = await response.json()
+      console.log('json', json);
+      this.setState({
+        messages: [...this.state.messages, json]
+      })
+    } else {
+      console.log('Unable to Add New Message', response.status);
+    }
+  }
+
+  async storeState(id, command, prop, value) {
+    const data = {messageId: id, command: command}
+    if (value !== null) {
+      data[prop] = value
+    }
+
+    await fetch('http://localhost:8082/api/messages', {
+      method: 'PATCH',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    })
   }
 
   toggleClass = (message, className) => {
@@ -18,16 +67,14 @@ class App extends Component {
       id: index[className],
       messages: messages
     })
+    if (className === 'starred') {
+      const id = this.state.messages[index].idea
+      this.storeState([id], 'star', 'star', this.state.messages[index][className])
+    }
   }
 
-  countMessages = (property) => {
-    let count = 0;
-    this.state.messages.forEach(message => {
-      if(message[property]) {
-        count++
-      }
-    })
-    return count
+  countMessages = () => {
+    return this.state.messages.filter(message => !message.read).length
   }
 
   bulkSelectToggle = () => {
@@ -46,13 +93,16 @@ class App extends Component {
   }
 
   markAsReadToggle = (messageStatus) => {
+    let ids = []
     const messages = this.state.messages
     messages.filter(message => {
       if (message.selected) {
         message.read = messageStatus
+        ids.push()
       }
     })
     this.setState({ messages: messages })
+    this.storeState(ids, 'read', 'read', messageStatus)
   }
 
   deleteMessage = () => {
@@ -91,14 +141,13 @@ class App extends Component {
   this.setState({ messages: messages })
 }
 
-  composeMessage = () => {
-    console.log('hello!')
-    this.setState({
-      btnClicked: !this.state.btnClicked,
-      messageBody: null
-    })
-  }
-
+composeMessage = () => {
+  console.log('hello!')
+  this.setState({
+    btnClicked: !this.state.btnClicked,
+    messageBody: null
+  })
+}
 
   render() {
       return (
@@ -113,6 +162,7 @@ class App extends Component {
             applyLabel={this.applyLabel}
             removeLabel={this.removeLabel}
             composeMessage={this.composeMessage}
+            sendMessage={this.sendMessage}
             />
           <MessageList messages={this.state.messages} toggleClass={this.toggleClass} />
         </section>

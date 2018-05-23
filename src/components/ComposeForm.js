@@ -3,13 +3,13 @@ import React from 'react'
 class ComposeForm extends React.Component {
   constructor(props) {
     super(props)
+    this.submitHandler = this.submitHandler.bind(this)
   }
 
-  submitHandler = () => {
+  submitHandler(e) {
+    e.preventDefault()
     const subject = document.querySelector('#subject').value || ''
     const body = document.querySelector('#body').value || ''
-    console.log('subject', subject)
-    console.log('body', body)
     this.props.sendMessage(subject, body)
   }
 
@@ -17,9 +17,7 @@ class ComposeForm extends React.Component {
 
     return (
       <form className={this.props.formHidden ? "form-horizontal well hidden" : "form-horizontal well"}
-        onSubmit={() => {
-          this.submitHandler()
-        }}
+        onSubmit={ this.submitHandler }
       >
         <section className="form-group">
           <aside className="col-sm-8 col-sm-offset-2">
