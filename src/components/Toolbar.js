@@ -62,7 +62,7 @@ class Toolbar extends React.Component {
           <section className="col-md-12">
             <p className="pull-right">
               <span className="badge badge">
-                {this.state.countMessages()}
+                {this.state.countMessages('read')}
               </span>
               unread messages
             </p>
@@ -123,7 +123,7 @@ class Toolbar extends React.Component {
           </section>
         </nav>
         <section className="container">
-          <ComposeForm formHidden={this.state.formHidden} sendMessage={this.props.sendMessage} storeState={this.props.storeState}/>
+          <ComposeForm formHidden={this.state.formHidden} sendMessage={this.props.sendMessage}/>
         </section>
     </div>
     )

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './App.css';
 import MessageList from './components/MessageList'
 import Toolbar from './components/Toolbar'
-import ComposeForm from './components/ComposeForm'
 
 class App extends Component {
   constructor(props) {
@@ -22,7 +21,6 @@ class App extends Component {
   }
 
   sendMessage = async(subject, body) => {
-    console.log('subject', subject);
     const composedMessage = {subject: subject, body: body}
     const response = await fetch('http://localhost:8082/api/messages', {
       method: 'POST',
@@ -49,7 +47,7 @@ class App extends Component {
       data[prop] = value
     }
 
-    await fetch('http://localhost:8082/api/messages', {
+    const response = await fetch('http://localhost:8082/api/messages', {
       method: 'PATCH',
       body: JSON.stringify(data),
       headers: {
@@ -73,8 +71,14 @@ class App extends Component {
     }
   }
 
-  countMessages = () => {
-    return this.state.messages.filter(message => !message.read).length
+  countMessages = (property) => {
+    let count = 0
+    this.state.messages.forEach(message => {
+      if (message[property]) {
+        count++
+      }
+    })
+    return count
   }
 
   bulkSelectToggle = () => {
