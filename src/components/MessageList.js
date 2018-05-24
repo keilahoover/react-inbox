@@ -1,15 +1,20 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import Message from './Message'
 
-class MessageList extends React.Component {
-
-  render() {
-    return (
-      <article>
-        {this.props.messages.map((message, i) => <Message key={i} message={message} toggleClass={this.props.toggleClass}/>)}
-      </article>
-    )
-  }
+function MessageList({messages, toggleClass}) {
+  return (
+    <Fragment>
+      {messages.map((message, i) =>
+        (
+          <Message
+            key={i}
+            message={message}
+            toggleClass={toggleClass}
+          />
+        )
+      )}
+    </Fragment>
+  )
 }
 
 export default MessageList

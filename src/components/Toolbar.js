@@ -4,24 +4,34 @@ import ComposeForm from './ComposeForm'
 class Toolbar extends React.Component {
   constructor(props) {
     super(props)
+    //remove states change to props
     this.state = {
       messages: this.props.messages,
+      ids: this.props.ids,
       countMessages: this.props.countMessages,
       bulkSelectToggle: this.props.bulkSelectToggle,
       markAsReadToggle: this.props.markAsReadToggle,
-      deleteMessage: this.props.deleteMessage,
       applyLabel: this.props.applyLabel,
       removeLabel: this.props.removeLabel,
       composeMessage: this.props.composeMessage,
       formHidden: true
     }
 
+    this.onDeleteMessage = this.onDeleteMessage.bind(this)
     this.onApplyLabel = this.onApplyLabel.bind(this)
     this.onRemoveLabel = this.onRemoveLabel.bind(this)
 
   }
 
+  componentWillReceiveProps(newProps) {
+    this.setState({
+      ...this.state,
+      messages: newProps.messages
+    })
+  }
+
   selectTool = (messages) => {
+
     if (this.state.countMessages('selected') < 1) {
       return 'fa fa-check-square-o'
     } else if (this.state.countMessages('selected') < 4) {
@@ -55,6 +65,20 @@ class Toolbar extends React.Component {
     }
   }
 
+  onDeleteMessage(e) {
+    e.preventDefault()
+    const messages = this.state.messages
+    const messageSelected = messages.filter(message => message.selected)
+    console.log('messageSelected', messageSelected);
+    const idsSelected = messageSelected.map(message => message.id)
+    // messages.forEach(message => {
+    //   for (let i = 0; i < messageSelected.length; i++) {
+    //     messages.filter(message => message.id && message.id !== messageSelected[i].id)
+    //   }
+    // })
+    return this.props.deleteMessage(idsSelected)
+  }
+
   render() {
     return (
       <div>
@@ -62,7 +86,7 @@ class Toolbar extends React.Component {
           <section className="col-md-12">
             <p className="pull-right">
               <span className="badge badge">
-                {this.state.countMessages('read')}
+                { this.state.countMessages('read')}
               </span>
               unread messages
             </p>
@@ -85,14 +109,14 @@ class Toolbar extends React.Component {
 
             <button className="btn btn-default"
               onClick={() => {
-                this.state.markAsReadToggle(true)
+                this.state.markAsReadToggle()
               }}>
               Mark As Read
             </button>
 
             <button className="btn btn-default"
               onClick={() => {
-                this.state.markAsReadToggle(false)
+                this.state.markAsReadToggle()
               }}>
               Mark As Unread
             </button>
@@ -114,9 +138,8 @@ class Toolbar extends React.Component {
             </select>
 
             <button className="btn btn-default"
-              onClick={() => {
-                this.state.deleteMessage()
-              }}>
+              onClick={this.onDeleteMessage
+              }>
               <i className='fa fa-trash-o'></i>
             </button>
 

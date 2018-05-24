@@ -7,15 +7,16 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      messages: []
+      messages: [],
+      ids: []
     }
   }
 
   async componentDidMount() {
     const response = await fetch('http://localhost:8082/api/messages')
     const json = await response.json()
-    console.log('json', json);
     this.setState({
+      ...this.state,
       messages: json._embedded.messages
     })
   }
@@ -41,7 +42,7 @@ class App extends Component {
     }
   }
 
-  async storeState(id, command, prop, value) {
+  storeState = async(id, command, prop, value) => {
     const data = {messageId: id, command: command}
     if (value !== null) {
       data[prop] = value
@@ -57,17 +58,55 @@ class App extends Component {
     })
   }
 
+  //
+  // storeDeleteMessage = async(id) => {
+  //   const ids = this.state.ids
+  //   const data = {messageId: ids}
+  //   console.log(data);
+  //
+  //   const response = await fetch('http://localhost:8082/api/messages', {
+  //     method: 'PATCH',
+  //     body: JSON.stringify(data),
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Accept': 'application/json'
+  //     }
+  //   })
+  // }
+
+
   toggleClass = (message, className) => {
     const messages = this.state.messages
-    const index = messages.indexOf(message)
-    messages[index][className] = !messages[index][className]
-    this.setState({
-      id: index[className],
-      messages: messages
-    })
+    // const index = messages.indexOf(message)
+    // //messages[index][className] = !messages[index][className]
+    if (className === 'selected') {
+      this.setState({
+        ids: [ ...this.state.ids, message.id],
+        messages: messages.map((msg, i) => {
+          if (message.id === msg.id) {
+            msg = {
+              ...msg,
+              selected: !msg.selected
+            }
+          }
+          return msg
+        })
+      })
+    }
     if (className === 'starred') {
-      const id = this.state.messages[index].idea
-      this.storeState([id], 'star', 'star', this.state.messages[index][className])
+      this.setState({
+        ids: [ ...this.state.ids, message.id],
+        messages: messages.map((msg, i) => {
+          if (message.id === msg.id) {
+            msg = {
+              ...msg,
+              starred: !msg.starred
+            }
+          }
+          return msg
+        })
+      })
+      // this.storeState([id], 'star', 'star', this.state.messages[index][className])
     }
   }
 
@@ -97,28 +136,57 @@ class App extends Component {
   }
 
   markAsReadToggle = (messageStatus) => {
-    let ids = []
     const messages = this.state.messages
     messages.filter(message => {
       if (message.selected) {
         message.read = messageStatus
-        ids.push()
+        this.state.ids.push(message.id)
       }
     })
+    this.storeState(this.state.ids, 'read', 'read', messageStatus)
     this.setState({ messages: messages })
-    this.storeState(ids, 'read', 'read', messageStatus)
   }
 
-  deleteMessage = () => {
-    const messages = this.state.messages
-    messages.filter(message => {
-      if (message.selected) {
-        messages.splice(messages.indexOf(message), 1)
+
+  storeState = async(id, command, prop, value) => {
+    const data = {messageId: id, command: command}
+    if (value !== null) {
+      data[prop] = value
+    }
+
+    const response = await fetch('http://localhost:8082/api/messages', {
+      method: 'PATCH',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
       }
     })
-    this.setState({ messages: messages})
   }
 
+
+  deleteMessage = async (ids) => {
+    let deletedMessages = {
+      messageIds: ids,
+      command: 'delete'
+    }
+    const response = await fetch('http://localhost:8082/api/messages', {
+      method: 'PATCH',
+      body: JSON.stringify(deletedMessages),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    })
+    if (response.status === 200) {
+      const messages = this.state.messages.filter(m => !ids.includes(m.id))
+      console.log(messages);
+      this.setState({
+        ...this.state.messages,
+        messages,
+      })
+    }
+  }
 
   applyLabel = (prevMessages, label) => {
     const messages = prevMessages.slice()
@@ -146,7 +214,6 @@ class App extends Component {
 }
 
 composeMessage = () => {
-  console.log('hello!')
   this.setState({
     btnClicked: !this.state.btnClicked,
     messageBody: null
@@ -159,6 +226,7 @@ composeMessage = () => {
           <h1>REACT INBOX</h1>
           <Toolbar
             messages={this.state.messages}
+            ids={this.state.ids}
             countMessages={this.countMessages}
             bulkSelectToggle={this.bulkSelectToggle}
             markAsReadToggle={this.markAsReadToggle}
@@ -167,10 +235,27 @@ composeMessage = () => {
             removeLabel={this.removeLabel}
             composeMessage={this.composeMessage}
             sendMessage={this.sendMessage}
-            />
+          />
           <MessageList messages={this.state.messages} toggleClass={this.toggleClass} />
         </section>
       )
   }
 }
 export default App;
+
+
+
+
+
+  // deleteMessageIds = (id) => {
+  //   const messages = this.state.messages
+  //   // const newMessage = ...this.state.messages
+  //   messages.filter(message => {
+  //     if (message.selected) {
+  //       messages.splice(messages.indexOf(message), 1)
+  //       this.state.ids.push(id)
+  //     }
+  //   })
+  //   this.storeDeleteMessage(this.state.ids)
+  //   this.setState({ messages: messages})
+  // }
