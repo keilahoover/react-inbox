@@ -2,18 +2,6 @@ import React from 'react'
 //change to functional component
 class Message extends React.Component {
 
-  userRead = () => {
-    return this.props.message.read ? 'read' : 'unread'
-  }
-
-  userSelected = () => {
-    return this.props.message.selected ? 'selected' : ''
-  }
-
-  userChecked = () => {
-    return this.props.message.selected ? true : false
-  }
-
   renderLabels = () => {
     if (this.props.message.labels !== undefined) {
       return this.props.message.labels.map((label, i) => {
@@ -25,10 +13,12 @@ class Message extends React.Component {
   }
 
   render() {
+    const read = this.props.message.read ? 'read' : 'unread'
+    const selected = this.props.message.selected ? 'selected' : ''
     const starred = this.props.message.starred ? 'star fa fa-star' : 'star fa fa-star-o'
     return (
       <div>
-        <section className={`row message ${this.userRead()} ${this.userSelected()}`}>
+        <section className={`row message ${read} ${selected}`}>
           <article className="col-xs-1">
             <aside className="row">
               <article className="col-xs-2">
