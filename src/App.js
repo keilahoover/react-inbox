@@ -180,24 +180,19 @@ class App extends Component {
         }
       }
     })
-    console.log(messages);
     this.setState({ messages: messages })
-    // const selectedMessages = messages.map(message => {
-    //   if (message.selected === true) {
-    //     return message.labels.indexOf(label) === -1 ? {...message, labels: [...message.labels, label]} : message
-    //   }
-    // })
-    // this.setState({ messages: selectedMessages })
   }
 
   removeLabel = (label) => {
   const messages = this.state.messages
   const selectedMessage = this.state.messages.filter(message => message.selected === true)
+  let index
   messages.forEach(message => {
     for (let i = 0; i < selectedMessage.length; i++) {
+      index = messages.map(message => message.id).indexOf(selectedMessage[i].id)
       if (message.id === selectedMessage[i].id) {
         if (selectedMessage[i].labels.includes(label)) {
-          return messages[message.id - 1].labels = messages[message.id - 1].labels.filter(message => message !== label)
+          return messages[index].labels = messages[index].labels.filter(message => message !== label)
         }
       }
     }
