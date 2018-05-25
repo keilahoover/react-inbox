@@ -58,27 +58,9 @@ class App extends Component {
     })
   }
 
-  //
-  // storeDeleteMessage = async(id) => {
-  //   const ids = this.state.ids
-  //   const data = {messageId: ids}
-  //   console.log(data);
-  //
-  //   const response = await fetch('http://localhost:8082/api/messages', {
-  //     method: 'PATCH',
-  //     body: JSON.stringify(data),
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       'Accept': 'application/json'
-  //     }
-  //   })
-  // }
-
 
   toggleClass = (message, className) => {
     const messages = this.state.messages
-    // const index = messages.indexOf(message)
-    // //messages[index][className] = !messages[index][className]
     if (className === 'selected') {
       this.setState({
         ids: [ ...this.state.ids, message.id],
@@ -123,27 +105,23 @@ class App extends Component {
   bulkSelectToggle = () => {
     const messages = this.state.messages
     if (this.countMessages('selected') < messages.length) {
-      messages.filter(message => {
-        message.selected = true
-      })
-    this.setState({ messages: messages })
+      const messageSelected = messages.filter(message => message.selected = true)
+      console.log(messageSelected);
+      this.setState({ messages: messages })
     } else {
-        messages.filter(message => {
-        message.selected = false
-      })
+        messages.filter(message => message.selected = false)
+        this.setState({ messages: messages })
+        console.log(messages);
     }
-    this.setState({ messages: messages })
   }
 
-  markAsReadToggle = (messageStatus) => {
+  markAsReadToggle = (boolean) => {
     const messages = this.state.messages
-    messages.filter(message => {
+    messages.forEach(message => {
       if (message.selected) {
-        message.read = messageStatus
-        this.state.ids.push(message.id)
+        message.read = boolean
       }
     })
-    this.storeState(this.state.ids, 'read', 'read', messageStatus)
     this.setState({ messages: messages })
   }
 

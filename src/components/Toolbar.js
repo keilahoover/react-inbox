@@ -8,18 +8,21 @@ class Toolbar extends React.Component {
       formHidden: true
     }
 
+    this.onBulkSelectToggle = this.onBulkSelectToggle.bind(this)
+    this.onMarkAsRead = this.onMarkAsRead.bind(this)
+    this.onMarkAsUnread = this.onMarkAsUnread.bind(this)
     this.onDeleteMessage = this.onDeleteMessage.bind(this)
     this.onApplyLabel = this.onApplyLabel.bind(this)
     this.onRemoveLabel = this.onRemoveLabel.bind(this)
 
   }
 
-  componentWillReceiveProps(newProps) {
-    this.setState({
-      ...this.state,
-      messages: newProps.messages
-    })
-  }
+  // componentWillReceiveProps(newProps) {
+  //   this.setState({
+  //     ...this.state,
+  //     messages: newProps.messages
+  //   })
+  // }
 
   selectTool = (messages) => {
     if (this.props.countMessages('selected') < 1) {
@@ -29,6 +32,21 @@ class Toolbar extends React.Component {
     } else {
       return 'fa fa-check-square'
     }
+  }
+
+  onBulkSelectToggle(e) {
+    e.stopPropagation()
+    return this.props.bulkSelectToggle()
+  }
+
+  onMarkAsRead(e) {
+    e.stopPropagation()
+    return this.props.markAsReadToggle(true)
+  }
+
+  onMarkAsUnread(e) {
+    e.stopPropagation()
+    return this.props.markAsReadToggle(false)
   }
 
   onApplyLabel(e) {
@@ -85,23 +103,17 @@ class Toolbar extends React.Component {
             </a>
 
             <button className="btn btn-default"
-              onClick={() => {
-                this.props.bulkSelectToggle()
-              }}>
+              onClick={this.onBulkSelectToggle}>
               <i className={this.selectTool()}></i>
             </button>
 
             <button className="btn btn-default"
-              onClick={() => {
-                this.props.bulkSelectToggle()
-              }}>
+              onClick={this.onMarkAsRead}>
               Mark As Read
             </button>
 
             <button className="btn btn-default"
-              onClick={() => {
-                this.props.bulkSelectToggle()
-              }}>
+              onClick={this.onMarkAsUnread}>
               Mark As Unread
             </button>
 
