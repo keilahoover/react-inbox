@@ -167,17 +167,20 @@ class App extends Component {
   }
 
   applyLabel = (label) => {
-    const messages = this.props.messages
-    const selectedMessage = messages.filter(message => message.selected === true)
+    let messages = this.state.messages
+    let selectedMessage = messages.filter(message => message.selected === true)
+    let index
     messages.forEach(message => {
-      for (let i = 0; i < selectedMessage.lenght; i++) {
+      for (let i = 0; i < selectedMessage.length; i++) {
+        index = messages.map(message => message.id).indexOf(selectedMessage[i].id)
         if (message.id === selectedMessage[i].id) {
-          if (selectedMessage[i].labels.includes(label)) {
-            return message.labels.indexOf(label) === -1 ? {...message, labels: [...message.labels, label]} : message
+          if (!selectedMessage[i].labels.includes(label)) {
+            return messages[index] = {...message, labels: [...message.labels, label]}
           }
         }
       }
     })
+    console.log(messages);
     this.setState({ messages: messages })
     // const selectedMessages = messages.map(message => {
     //   if (message.selected === true) {
@@ -188,8 +191,8 @@ class App extends Component {
   }
 
   removeLabel = (label) => {
-  const messages = this.props.messages
-  const selectedMessage = messages.filter(message => message.selected === true)
+  const messages = this.state.messages
+  const selectedMessage = this.state.messages.filter(message => message.selected === true)
   messages.forEach(message => {
     for (let i = 0; i < selectedMessage.length; i++) {
       if (message.id === selectedMessage[i].id) {
@@ -202,6 +205,7 @@ class App extends Component {
   this.setState({ messages: messages })
 }
 
+//do I need this?
 composeMessage = () => {
   this.setState({
     btnClicked: !this.state.btnClicked,

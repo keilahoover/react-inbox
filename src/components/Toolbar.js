@@ -50,6 +50,7 @@ class Toolbar extends React.Component {
   }
 
   onApplyLabel(e) {
+    console.log(e.target.value);
     e.preventDefault()
     return this.props.applyLabel(e.target.value)
   }
