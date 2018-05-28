@@ -43,14 +43,11 @@ class App extends Component {
   }
 
   storeState = async(id, command, prop, value) => {
-    const data = {messageId: id, command: command}
-    if (value !== null) {
-      data[prop] = value
-    }
+    const storeObj = {messageId: id, command: command}
 
     const response = await fetch('http://localhost:8082/api/messages', {
       method: 'PATCH',
-      body: JSON.stringify(data),
+      body: JSON.stringify(storeObj),
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -124,24 +121,6 @@ class App extends Component {
     })
     this.setState({ messages: messages })
   }
-
-
-  storeState = async(id, command, prop, value) => {
-    const data = {messageId: id, command: command}
-    if (value !== null) {
-      data[prop] = value
-    }
-
-    const response = await fetch('http://localhost:8082/api/messages', {
-      method: 'PATCH',
-      body: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      }
-    })
-  }
-
 
   deleteMessage = async (ids) => {
     let deletedMessages = {
@@ -230,20 +209,3 @@ composeMessage = () => {
   }
 }
 export default App;
-
-
-
-
-
-  // deleteMessageIds = (id) => {
-  //   const messages = this.state.messages
-  //   // const newMessage = ...this.state.messages
-  //   messages.filter(message => {
-  //     if (message.selected) {
-  //       messages.splice(messages.indexOf(message), 1)
-  //       this.state.ids.push(id)
-  //     }
-  //   })
-  //   this.storeDeleteMessage(this.state.ids)
-  //   this.setState({ messages: messages})
-  // }

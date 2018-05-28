@@ -17,13 +17,6 @@ class Toolbar extends React.Component {
 
   }
 
-  // componentWillReceiveProps(newProps) {
-  //   this.setState({
-  //     ...this.state,
-  //     messages: newProps.messages
-  //   })
-  // }
-
   selectTool = (messages) => {
     if (this.props.countMessages('selected') < 1) {
       return 'fa fa-check-square-o'
