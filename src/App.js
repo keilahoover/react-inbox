@@ -138,15 +138,20 @@ class App extends Component {
 
   markAsReadToggle = (boolean) => {
     const messages = this.state.messages
+    const messageSelected = this.state.messages.filter(message => message.selected)
+    const idsSelected = messageSelected.map(message => message.id)
     messages.forEach(message => {
       if (message.selected) {
         message.read = boolean
       }
     })
     this.setState({ messages: messages })
+    // id, command, key, value
+    this.storeState(idsSelected, 'read', 'read', true)
   }
 
   deleteMessage = async (ids) => {
+    //think about index maybe??
     let deletedMessages = {
       messageIds: ids,
       command: 'delete'
