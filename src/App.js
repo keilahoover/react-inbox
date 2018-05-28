@@ -42,8 +42,12 @@ class App extends Component {
     }
   }
 
-  storeState = async(id, command, prop, value) => {
-    const storeObj = {messageId: id, command: command}
+  storeState = async(id, command, key, value) => {
+    const storeObj = {
+      messageIds: id,
+      command: command,
+      [key]: value
+    }
 
     const response = await fetch('http://localhost:8082/api/messages', {
       method: 'PATCH',
@@ -56,7 +60,7 @@ class App extends Component {
   }
 
 
-  toggleClass = (message, className) => {
+  messageSelected = (message, className) => {
     const messages = this.state.messages
     if (className === 'selected') {
       this.setState({
@@ -72,7 +76,12 @@ class App extends Component {
         })
       })
     }
-    if (className === 'starred') {
+  }
+
+  messageStarred = (message, starred) => {
+    console.log(starred);
+    const messages = this.state.messages
+    if (starred === false) {
       this.setState({
         ids: [ ...this.state.ids, message.id],
         messages: messages.map((msg, i) => {
@@ -85,7 +94,22 @@ class App extends Component {
           return msg
         })
       })
-      // this.storeState([id], 'star', 'star', this.state.messages[index][className])
+      this.storeState([message.id], 'star', 'star', true)
+    } else {
+      console.log('off');
+      this.setState({
+        ids: [ ...this.state.ids, message.id],
+        messages: messages.map((msg, i) => {
+          if (message.id === msg.id) {
+            msg = {
+              ...msg,
+              starred: !msg.starred
+            }
+          }
+          return msg
+        })
+      })
+      this.storeState([message.id], 'star', 'star', false)
     }
   }
 
@@ -203,7 +227,7 @@ composeMessage = () => {
             composeMessage={this.composeMessage}
             sendMessage={this.sendMessage}
           />
-          <MessageList messages={this.state.messages} toggleClass={this.toggleClass} />
+          <MessageList messages={this.state.messages} messageStarred={this.messageStarred} messageSelected={this.messageSelected} />
         </section>
       )
   }

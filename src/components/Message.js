@@ -1,6 +1,11 @@
 import React from 'react'
 //change to functional component
 class Message extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.onStar = this.onStar.bind(this)
+  }
 
   renderLabels = () => {
     if (this.props.message.labels !== undefined) {
@@ -10,6 +15,12 @@ class Message extends React.Component {
               </span> }
       )
     }
+  }
+
+  onStar (e) {
+    e.stopPropagation()
+    const starredMessage = this.props.message.starred
+    this.props.messageStarred(this.props.message, starredMessage)
   }
 
   render() {
@@ -25,15 +36,11 @@ class Message extends React.Component {
                 <input type="checkbox" value={this.props.message.selected}
                   onChange={(e) => {
                     e.stopPropagation()
-                    this.props.toggleClass(this.props.message, 'selected')
+                    this.props.messageSelected(this.props.message, 'selected')
                   }} />
               </article>
               <article className='col-xs-2'>
-                <i onClick={(e) => {
-                  e.stopPropagation()
-                  console.log('star clicked??');
-                  this.props.toggleClass(this.props.message, 'starred')
-                }} className={starred}></i>
+                <i onClick={this.onStar} className={starred}></i>
               </article>
             </aside>
           </article>

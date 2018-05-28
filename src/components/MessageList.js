@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import Message from './Message'
 
-function MessageList({messages, toggleClass}) {
+function MessageList({messages, messageStarred, messageSelected}) {
   return (
     <Fragment>
       {messages.map((message, i) =>
@@ -9,7 +9,8 @@ function MessageList({messages, toggleClass}) {
           <Message
             key={i}
             message={message}
-            toggleClass={toggleClass}
+            messageStarred={messageStarred}
+            messageSelected={messageSelected}
           />
         )
       )}
