@@ -145,7 +145,6 @@ class App extends Component {
       }
     })
     this.setState({ messages: messages })
-    // id, command, key, value
     this.storeState(idsSelected, 'read', 'read', boolean)
   }
 
@@ -174,8 +173,9 @@ class App extends Component {
   }
 
   applyLabel = (label) => {
-    let messages = this.state.messages
-    let selectedMessage = messages.filter(message => message.selected === true)
+    const messages = this.state.messages
+    const selectedMessage = messages.filter(message => message.selected)
+    const idsSelected = selectedMessage.map(message => message.id)
     let index
     messages.forEach(message => {
       for (let i = 0; i < selectedMessage.length; i++) {
@@ -187,12 +187,14 @@ class App extends Component {
         }
       }
     })
+    this.storeState(idsSelected, 'addLabel', 'label', label)
     this.setState({ messages: messages })
   }
 
   removeLabel = (label) => {
   const messages = this.state.messages
   const selectedMessage = this.state.messages.filter(message => message.selected === true)
+  const idsSelected = selectedMessage.map(message => message.id)
   let index
   messages.forEach(message => {
     for (let i = 0; i < selectedMessage.length; i++) {
@@ -204,6 +206,7 @@ class App extends Component {
       }
     }
   })
+  this.storeState(idsSelected, 'removeLabel', 'label', label)
   this.setState({ messages: messages })
 }
 
