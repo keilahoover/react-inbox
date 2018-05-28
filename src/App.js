@@ -96,7 +96,6 @@ class App extends Component {
       })
       this.storeState([message.id], 'star', 'star', true)
     } else {
-      console.log('off');
       this.setState({
         ids: [ ...this.state.ids, message.id],
         messages: messages.map((msg, i) => {
@@ -147,7 +146,7 @@ class App extends Component {
     })
     this.setState({ messages: messages })
     // id, command, key, value
-    this.storeState(idsSelected, 'read', 'read', true)
+    this.storeState(idsSelected, 'read', 'read', boolean)
   }
 
   deleteMessage = async (ids) => {
