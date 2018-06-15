@@ -10,11 +10,33 @@ class ComposeForm extends React.Component {
     e.preventDefault()
     const subject = document.querySelector('#subject').value || ''
     const body = document.querySelector('#body').value || ''
-    this.props.sendMessage(subject, body)
+    this.props.sendMessage
+    this.props.history.push('/')
   }
 
-  render() {
+  // sendMessage = async(subject, body) => {
+  //   const composedMessage = {subject: subject, body: body}
+  //   const response = await fetch('http://localhost:8082/api/messages', {
+  //     method: 'POST',
+  //     body: JSON.stringify(composedMessage),
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Accept': 'application/json'
+  //     }
+  //   })
+  //   if (response.status === 200) {
+  //     const json = await response.json()
+  //     this.setState({
+  //       messages: [...this.props.messages, json]
+  //     })
+  //   } else {
+  //     console.log('Unable to Add New Message', response.status);
+  //   }
+  // }
 
+
+  render() {
+    console.log(this.props.sendMessage);
     return (
       <form className={this.props.formHidden ? "form-horizontal well hidden" : "form-horizontal well"}
         onSubmit={ this.submitHandler }

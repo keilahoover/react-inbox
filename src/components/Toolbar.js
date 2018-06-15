@@ -54,17 +54,7 @@ class Toolbar extends React.Component {
   }
 
   onComposeMessage() {
-    if (this.state.formHidden) {
-      this.setState({
-        ...this.state,
-        formHidden: false
-      })
-    } else {
-      this.setState({
-        ...this.state,
-        formHidden: true
-      })
-    }
+    this.props.history.push('/compose')
   }
 
   onDeleteMessage(e) {
@@ -136,7 +126,7 @@ class Toolbar extends React.Component {
           </section>
         </nav>
         <section className="container">
-          <ComposeForm formHidden={this.state.formHidden} sendMessage={this.props.sendMessage}/>
+          {/* <ComposeForm formHidden={this.state.formHidden} sendMessage={this.props.sendMessage}/> */}
         </section>
     </div>
     )

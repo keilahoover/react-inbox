@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import MessageList from './components/MessageList'
 import Toolbar from './components/Toolbar'
+import ComposeForm from './components/ComposeForm'
 
 class App extends Component {
   constructor(props) {
@@ -223,6 +224,7 @@ composeMessage = () => {
         <section className="container">
           <h1>REACT INBOX</h1>
           <Toolbar
+            history={this.props.history}
             messages={this.state.messages}
             ids={this.state.ids}
             countMessages={this.countMessages}
@@ -232,9 +234,10 @@ composeMessage = () => {
             applyLabel={this.applyLabel}
             removeLabel={this.removeLabel}
             composeMessage={this.composeMessage}
-            sendMessage={this.sendMessage}
+            // sendMessage={this.sendMessage}
           />
           <MessageList messages={this.state.messages} messageStarred={this.messageStarred} messageSelected={this.messageSelected} />
+          <ComposeForm messages={this.state.messages} history={this.props.history} sendMessage={this.sendMessage} />
         </section>
       )
   }
